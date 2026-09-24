@@ -65,7 +65,7 @@ export default function LoginPage({ onLogin, onNavigate }) {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="login-tabs-nav" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="login-tabs-nav">
             <button
               type="button"
               className={`login-tab-btn ${activeTab === 'department' ? 'active' : ''}`}
@@ -75,10 +75,9 @@ export default function LoginPage({ onLogin, onNavigate }) {
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
-              Department & Officer Login
+              Department Login
             </button>
 
-            {/* Controller PIN action commented out for review
             <button
               type="button"
               className={`login-tab-btn ${activeTab === 'pin' ? 'active' : ''}`}
@@ -90,7 +89,6 @@ export default function LoginPage({ onLogin, onNavigate }) {
               </svg>
               Controller PIN
             </button>
-            */}
           </div>
 
           {/* Form Body */}
@@ -169,7 +167,6 @@ export default function LoginPage({ onLogin, onNavigate }) {
                   Enter Operational Portal →
                 </button>
               </form>
-            /* Controller PIN form commented out for review
             ) : (
               <form onSubmit={handlePinSubmit}>
                 <div className="login-field-group">
@@ -206,7 +203,6 @@ export default function LoginPage({ onLogin, onNavigate }) {
                   Authorize Controller Command Deck →
                 </button>
               </form>
-            */
             )}
 
             {/* Quick 1-Click Role Profiles for SIH Evaluation */}
