@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import vandeBharatImg from '../assets/vande_bharat_hero.jpg';
 import './Hero.css';
 
-export default function Hero({ onNavigate }) {
+export default function Hero({ onNavigate, isLoggedIn = false }) {
   const [fromStation, setFromStation] = useState('NDLS - New Delhi Div');
   const [toStation, setToStation] = useState('AGC - Agra Cantt Sec');
   const [journeyDate, setJourneyDate] = useState('2026-09-10');
@@ -26,6 +26,7 @@ export default function Hero({ onNavigate }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    if (!isLoggedIn) return;
     setSearchFeedback(`Optimizing multi-department corridor blocks for ${fromStation} → ${toStation}...`);
     setTimeout(() => {
       setSearchFeedback('');
@@ -38,6 +39,7 @@ export default function Hero({ onNavigate }) {
   };
 
   const handleLiveOccupancy = () => {
+    if (!isLoggedIn) return;
     if (onNavigate) {
       onNavigate('dashboard');
     } else {
@@ -46,6 +48,7 @@ export default function Hero({ onNavigate }) {
   };
 
   const handleFieldTerminal = () => {
+    if (!isLoggedIn) return;
     if (onNavigate) {
       onNavigate('field-dispatch');
     } else {
@@ -235,7 +238,14 @@ export default function Hero({ onNavigate }) {
                 </div>
 
                 {/* Search / Optimize Button */}
-                <button type="submit" className="irctc-search-btn" id="search-trains-btn">
+                <button 
+                  type="submit" 
+                  className="irctc-search-btn" 
+                  id="search-trains-btn"
+                  disabled={!isLoggedIn}
+                  style={!isLoggedIn ? { opacity: 0.55, cursor: 'not-allowed', filter: 'grayscale(0.4)' } : {}}
+                  title={!isLoggedIn ? "Officer Login Required to Run Optimizer" : "Optimize Corridor"}
+                >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -243,6 +253,12 @@ export default function Hero({ onNavigate }) {
                   Optimize
                 </button>
               </div>
+
+              {!isLoggedIn && (
+                <div style={{ marginTop: '14px', background: '#fef3c7', border: '1px solid #fde68a', color: '#92400e', padding: '8px 14px', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span>🔒</span> <strong>Preview Mode:</strong> All solver controls and telemetry linkages are locked. Please login to access operational tools.
+                </div>
+              )}
 
               {searchFeedback && (
                 <div className="irctc-search-feedback">
@@ -261,6 +277,9 @@ export default function Hero({ onNavigate }) {
                 type="button"
                 className="irctc-action-card"
                 onClick={handleLiveOccupancy}
+                disabled={!isLoggedIn}
+                style={!isLoggedIn ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                title={!isLoggedIn ? "Officer Login Required" : "Track Occupancy"}
               >
                 <div className="irctc-action-card__icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#005494" strokeWidth="2">
@@ -277,6 +296,9 @@ export default function Hero({ onNavigate }) {
                 type="button"
                 className="irctc-action-card"
                 onClick={handleFieldTerminal}
+                disabled={!isLoggedIn}
+                style={!isLoggedIn ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                title={!isLoggedIn ? "Officer Login Required" : "Field 2G SMS"}
               >
                 <div className="irctc-action-card__icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#005494" strokeWidth="2">

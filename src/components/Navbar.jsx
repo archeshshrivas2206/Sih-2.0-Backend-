@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { IndianRailwaysLogo, IRCTCLogo } from './Logos';
 import './Navbar.css';
 
-export default function Navbar({ currentRoute, onNavigate, onOpenLogin }) {
+export default function Navbar({ currentRoute, onNavigate, onOpenLogin, currentUser, onLogout }) {
   const [istTime, setIstTime] = useState('');
   const [systemsDropdownOpen, setSystemsDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -59,8 +59,6 @@ export default function Navbar({ currentRoute, onNavigate, onOpenLogin }) {
     return () => clearInterval(interval);
   }, []);
 
-
-
   const operationalNavItems = [
     { id: 'overview', label: 'HOME' },
     { id: 'dashboard', label: 'DASHBOARD' },
@@ -94,7 +92,7 @@ export default function Navbar({ currentRoute, onNavigate, onOpenLogin }) {
           <div className="irctc-nav-left">
             <div 
               className="irctc-brand-identity"
-              onClick={() => onNavigate('overview')}
+              onClick={() => onNavigate(currentUser ? 'overview' : 'landing')}
               role="button"
               tabIndex={0}
             >
@@ -111,94 +109,120 @@ export default function Navbar({ currentRoute, onNavigate, onOpenLogin }) {
 
           {/* Center Capsule Navigation Menu */}
           <nav className={`irctc-nav-capsule ${mobileOpen ? 'open' : ''}`}>
-            {/* HOME */}
-            <button
-              className={`irctc-nav-pill ${currentRoute === 'overview' ? 'active' : ''}`}
-              onClick={() => { onNavigate('overview'); setMobileOpen(false); }}
-            >
-              HOME
-            </button>
+            {currentUser ? (
+              <>
+                {/* HOME */}
+                <button
+                  className={`irctc-nav-pill ${currentRoute === 'overview' ? 'active' : ''}`}
+                  onClick={() => { onNavigate('overview'); setMobileOpen(false); }}
+                >
+                  HOME
+                </button>
 
-            {/* RAILWAY SYSTEMS DROPDOWN (Replacing passenger menu with real PDF systems) */}
-            <div 
-              className="irctc-nav-dropdown-wrapper"
-              ref={dropdownWrapperRef}
-              onMouseEnter={handleDropdownEnter}
-              onMouseLeave={handleDropdownLeave}
-            >
-              <button
-                type="button"
-                className={`irctc-nav-pill irctc-dropdown-trigger ${systemsDropdownOpen ? 'active' : ''}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSystemsDropdownOpen((prev) => !prev);
-                }}
-                aria-expanded={systemsDropdownOpen}
-              >
-                SYSTEMS
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-
-              {systemsDropdownOpen && (
+                {/* RAILWAY SYSTEMS DROPDOWN */}
                 <div 
-                  className="irctc-trains-dropdown"
+                  className="irctc-nav-dropdown-wrapper"
+                  ref={dropdownWrapperRef}
                   onMouseEnter={handleDropdownEnter}
                   onMouseLeave={handleDropdownLeave}
                 >
-                  <div className="irctc-trains-dropdown-list">
-                    {systemMenuItems.map((item, idx) => (
-                      <button
-                        type="button"
-                        key={idx}
-                        className="irctc-trains-item"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          item.action();
-                          setSystemsDropdownOpen(false);
-                          setMobileOpen(false);
-                        }}
-                      >
-                        <span className="irctc-trains-item-icon">{item.icon}</span>
-                        <span className="irctc-trains-item-label">{item.label}</span>
-                        {item.badge && <span className="irctc-item-badge">{item.badge}</span>}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+                  <button
+                    type="button"
+                    className={`irctc-nav-pill irctc-dropdown-trigger ${systemsDropdownOpen ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSystemsDropdownOpen((prev) => !prev);
+                    }}
+                    aria-expanded={systemsDropdownOpen}
+                  >
+                    SYSTEMS
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </button>
 
-            {/* Subpage operational tabs */}
-            {operationalNavItems.slice(1).map((item) => {
-              const isActive = currentRoute === item.id;
-              return (
-                <button
-                  key={item.id}
-                  className={`irctc-nav-pill ${isActive ? 'active' : ''}`}
-                  onClick={() => {
-                    onNavigate(item.id);
-                    setMobileOpen(false);
-                  }}
-                >
-                  {item.label}
-                  {item.badge && <span className="irctc-pill-tag">{item.badge}</span>}
-                </button>
-              );
-            })}
+                  {systemsDropdownOpen && (
+                    <div 
+                      className="irctc-trains-dropdown"
+                      onMouseEnter={handleDropdownEnter}
+                      onMouseLeave={handleDropdownLeave}
+                    >
+                      <div className="irctc-trains-dropdown-list">
+                        {systemMenuItems.map((item, idx) => (
+                          <button
+                            type="button"
+                            key={idx}
+                            className="irctc-trains-item"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              item.action();
+                              setSystemsDropdownOpen(false);
+                              setMobileOpen(false);
+                            }}
+                          >
+                            <span className="irctc-trains-item-icon">{item.icon}</span>
+                            <span className="irctc-trains-item-label">{item.label}</span>
+                            {item.badge && <span className="irctc-item-badge">{item.badge}</span>}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Subpage operational tabs */}
+                {operationalNavItems.slice(1).map((item) => {
+                  const isActive = currentRoute === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      className={`irctc-nav-pill ${isActive ? 'active' : ''}`}
+                      onClick={() => {
+                        onNavigate(item.id);
+                        setMobileOpen(false);
+                      }}
+                    >
+                      {item.label}
+                      {item.badge && <span className="irctc-pill-tag">{item.badge}</span>}
+                    </button>
+                  );
+                })}
+              </>
+            ) : (
+              <div style={{ color: 'rgba(255, 255, 255, 0.75)', fontSize: '0.78rem', fontWeight: 600, padding: '4px 12px', letterSpacing: '0.04em' }}>
+                🔒 OFFICIAL SYSTEM DEMO • LOGIN FOR OPERATIONAL CONTROLLER ACCESS
+              </div>
+            )}
           </nav>
 
-          {/* Right Action: Official White LOGIN Button (Image 1) */}
+          {/* Right Action Controls */}
           <div className="irctc-nav-right">
             <span className="irctc-nav-clock">{istTime}</span>
-            <button
-              className="irctc-login-btn"
-              onClick={onOpenLogin}
-              id="header-login-btn"
-            >
-              LOGIN
-            </button>
+
+            {currentUser ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div className="irctc-user-badge">
+                  <span>👨‍✈️</span>
+                  <span className="irctc-user-badge__name">{currentUser.name?.split(' ')[0] || 'Officer'}</span>
+                  <span style={{ fontSize: '0.7rem', opacity: 0.85 }}>({currentUser.role?.split(' ')[0] || 'CRIS'})</span>
+                </div>
+                <button
+                  className="irctc-logout-btn"
+                  onClick={onLogout}
+                  id="header-logout-btn"
+                >
+                  LOGOUT
+                </button>
+              </div>
+            ) : (
+              <button
+                className="irctc-login-btn"
+                onClick={() => onNavigate('login')}
+                id="header-login-btn"
+              >
+                OFFICER LOGIN
+              </button>
+            )}
 
             <button
               className="irctc-mobile-menu-btn"

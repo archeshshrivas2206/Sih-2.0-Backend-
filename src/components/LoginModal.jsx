@@ -73,6 +73,7 @@ export default function LoginModal({ isOpen, onClose, onNavigate }) {
             <span>DEPARTMENT LOGIN</span>
           </button>
 
+          {/* Controller PIN action commented out for review
           <button 
             type="button"
             className={`irctc-modal-tab ${activeTab === 'agent' ? 'active' : ''}`}
@@ -86,6 +87,7 @@ export default function LoginModal({ isOpen, onClose, onNavigate }) {
             </svg>
             <span>CONTROLLER PIN</span>
           </button>
+          */}
         </div>
 
         {/* Modal Body */}
@@ -215,7 +217,7 @@ export default function LoginModal({ isOpen, onClose, onNavigate }) {
             </div>
           )}
 
-          {/* TAB 2: CONTROLLER PIN */}
+          {/* TAB 2: CONTROLLER PIN commented out for review
           {activeTab === 'agent' && (
             <div className="irctc-user-login">
               <form onSubmit={handleDepartmentLogin} className="irctc-form">
@@ -255,6 +257,7 @@ export default function LoginModal({ isOpen, onClose, onNavigate }) {
               </form>
             </div>
           )}
+          */}
         </div>
       </div>
     </div>

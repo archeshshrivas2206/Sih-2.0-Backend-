@@ -1,0 +1,282 @@
+/* LoginPage.css - Dedicated Official IR Login Portal for SIH 26027 */
+
+.login-page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0b2545 0%, #133c55 50%, #005494 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 183, 3, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(56, 163, 216, 0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.login-card-wrapper {
+  width: 100%;
+  max-width: 580px;
+  position: relative;
+  z-index: 2;
+}
+
+.login-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Card Header with Crest */
+.login-card-header {
+  background: linear-gradient(135deg, #005494 0%, #003666 100%);
+  color: #ffffff;
+  padding: 28px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.login-header-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.login-card-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.login-card-title span {
+  color: #ffb703;
+}
+
+.login-card-subtitle {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+/* Tabs */
+.login-tabs-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.login-tab-btn {
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.login-tab-btn:hover {
+  color: #005494;
+  background: #e2e8f0;
+}
+
+.login-tab-btn.active {
+  color: #005494;
+  background: #ffffff;
+  border-bottom-color: #005494;
+}
+
+/* Form Body */
+.login-form-body {
+  padding: 28px 28px 20px;
+}
+
+.login-field-group {
+  margin-bottom: 18px;
+}
+
+.login-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.login-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-input-icon {
+  position: absolute;
+  left: 12px;
+  color: #64748b;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.login-input,
+.login-select {
+  width: 100%;
+  padding: 11px 14px 11px 38px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: #0f172a;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.login-input:focus,
+.login-select:focus {
+  outline: none;
+  border-color: #005494;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 84, 148, 0.15);
+}
+
+.login-btn-submit {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, #005494 0%, #003666 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0, 84, 148, 0.3);
+}
+
+.login-btn-submit:hover {
+  background: linear-gradient(135deg, #003666 0%, #0b2545 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 84, 148, 0.4);
+}
+
+/* Quick Judge Demo Section */
+.login-demo-roles {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.login-demo-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.login-demo-badge {
+  background: #fef3c7;
+  color: #b45309;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.login-demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.login-demo-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-demo-btn:hover {
+  background: #e0f2fe;
+  border-color: #005494;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 84, 148, 0.1);
+}
+
+.login-demo-icon {
+  font-size: 1.3rem;
+}
+
+.login-demo-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0f172a;
+  display: block;
+}
+
+.login-demo-dept {
+  font-size: 0.7rem;
+  color: #64748b;
+  display: block;
+}
+
+/* Footer Link */
+.login-footer-nav {
+  text-align: center;
+  padding: 16px 24px 24px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.login-back-link {
+  color: #005494;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+
+.login-back-link:hover {
+  color: #fb8500;
+  text-decoration: underline;
+}
