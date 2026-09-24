@@ -1,0 +1,312 @@
+# 🚆 Sahayak Rail (सहायक रेल) — SIH 26027
+## Comprehensive Prototype Status Report & Backend Architecture Roadmap
+
+---
+
+## 📌 Executive Summary
+
+**Project Title:** Sahayak Rail (सहायक रेल) — AI-Powered Multi-Department Maintenance Block Scheduler  
+**Problem Statement ID:** SIH 26027  
+**Organization / Ministry:** Ministry of Railways (Railway Board / CRIS / RDSO)  
+**Target Milestone:** Functional End-to-End Prototype for Smart India Hackathon (SIH) 2026  
+**Document Purpose:** Complete technical audit of the existing frontend demo, identification of mock vs. functional elements, and an actionable, prioritized roadmap for developing the backend.
+
+---
+
+## 1. Problem Statement Deconstruction (SIH 26027)
+
+### 1.1 The Core Operating Bottleneck
+Indian Railways operates over **68,000+ route kilometers**, running **13,000+ passenger trains** and **8,000+ freight rakes** daily. Maintaining track geometry, 25 kV overhead catenary (OHE), and signaling requires **Track Maintenance Blocks (Possessions)** where train movements are suspended.
+
+Currently, maintenance planning across three primary departments operates in silos:
+1. **Permanent Way (P-Way / Civil Engineering)** via **TMS** (Track Management System).
+2. **Signal & Telecommunication (S&T)** via **SMMS** (Signaling Maintenance Management System).
+3. **Traction Distribution (TRD / Electrical)** via **TDMS** (Traction Distribution Management System).
+
+**The Practical Impact:**  
+Each department requests separate track blocks for the same corridor segment on different days (e.g., P-Way on Monday, S&T on Tuesday, TRD on Wednesday). This leads to **repeated track closures (7.5+ hours of lost throughput across three days)**, when all three maintenance activities could be bundled into a **single 3.5–4 hour shadow block**. Furthermore, coordination relies on manual paper memos, unintegrated BDMS requests, and phone calls between Section Controllers and Station Masters.
+
+### 1.2 The Four Mandatory PS Requirements
+According to the official SIH 26027 Problem Statement, any winning solution must address:
+
+| # | Mandate | Practical Meaning |
+| :--- | :--- | :--- |
+| **REQ-1** | **Multi-System Ingestion** | Ingest maintenance demands (defects, overdue tasks) from **TMS**, **SMMS**, and **TDMS**, combined with timetable & occupancy data from **COA** and a **goods trains forecast**. |
+| **REQ-2** | **AI/ML Task Prioritization** | Score and rank competing maintenance work orders based on **criticality**, **urgency**, and **network impact**. |
+| **REQ-3** | **Constraint Optimization & Bundling** | Optimize block schedules to maximize track uptime by dynamically bundling multi-department requests into synchronized **shadow blocks**. |
+| **REQ-4** | **Multi-Horizon Planning** | Output dynamic, multi-tier schedules covering both **7-day tactical** and **30-day strategic** horizons. |
+
+---
+
+## 2. Competitive Landscape & Our Winning Edge (The 4 USPs)
+
+An in-depth analysis of rival SIH solutions (e.g., *RAILBLOCK*, *Junction*, *ELITE*, *SIH-Railway-Planner*, *Monocle*) reveals that standard optimization (Google OR-Tools CP-SAT) and basic Gantt charts are **table stakes**—almost every team attempts them.
+
+To win, Sahayak Rail focuses on the **four critical operational realities that competitors miss**:
+
+```
+                                  ┌─────────────────────────────────────────────────────────┐
+                                  │            SAHAYAK RAIL 4 KEY WINNING USPs              │
+                                  └───────────────────────────┬─────────────────────────────┘
+                                                              │
+               ┌──────────────────────────────┬───────────────┴──────────────┬─────────────────────────────┐
+               ▼                              ▼                              ▼                             ▼
+       ┌───────────────┐              ┌───────────────┐              ┌───────────────┐             ┌───────────────┐
+       │    USP #1     │              │    USP #2     │              │    USP #3     │             │    USP #4     │
+       │Low-Bandwidth  │              │Freight Flow & │              │Weather / IMD  │             │Cross-Dept Bid │
+       │2G SMS & PTW   │              │Demand Forecast│              │Risk Adaptation│             │Pooling Engine │
+       └───────┬───────┘              └───────┬───────┘              └───────┬───────┘             └───────┬───────┘
+               │                              │                              │                             │
+    • Two-way GSM SMS              • Real data.gov.in goods       • Live IMD radar telemetry    • Cooperative bidding
+    • WhatsApp fallback            • "Calm Window" finder         • Rain/heat/scour alerts      • Automated bundling
+    • Official Form T/348M         • Preserves freight revenue    • Dynamic rescheduling        • Conflict prevention
+```
+
+1. **USP #1 — Low-Connectivity Field Dispatch (Highest Impact):** Track gangmen, PWIs, and S&T supervisors frequently operate in remote sections with zero 4G/5G signal. Sahayak Rail provides a two-way GSM 2G SMS engine for block requests, clearance confirmations, and cryptographic **Private Number (PN)** exchanges, backed by official **Form T/348M** generation.
+2. **USP #2 — Goods Train / Freight Forecasting (PS-Mandated):** Passenger trains follow fixed timetables, but freight is demand-driven. Competitors ignore freight; Sahayak Rail models seasonal goods traffic (coal, container, petroleum) to identify real "Calm Maintenance Windows."
+3. **USP #3 — Weather & Monsoon Resilience:** Automatically adjusts outdoor track maintenance around high-risk environmental conditions (heavy monsoon washouts, bridge scour, rail temperature > 55°C causing rail expansion).
+4. **USP #4 — Cross-Department Bidding Mechanism:** Allows engineering, signaling, and electrical wings to submit maintenance bids for target sections, which the solver clusters into shared possessions.
+
+---
+
+## 3. Current State of the Frontend Prototype
+
+The existing frontend is an aesthetically polished React 19 application configured with Vite. It features a complete design system adhering to official Indian Railways, CRIS, and IRCTC themes.
+
+### 3.1 Routing & Navigation Architecture
+- **Router:** Custom client-side hash routing (`window.location.hash`) inside `src/App.jsx`.
+- **Supported Hash Routes:**
+  - `/#overview`: Official landing portal with Hero, interactive map, USP showcase, and login trigger.
+  - `/#dashboard`: Section Controller command center with 24-hour Gantt chart.
+  - `/#optimizer`: CP-SAT solver studio, weight adjusters, and bidding interface.
+  - `/#freight`: Freight density charts and calm window detector.
+  - `/#field-dispatch`: 2G SMS terminal, syntax parsing, and Form T/348M preview.
+  - `/#weather`: IMD weather radar and vulnerable section alerts.
+  - `/#audit`: Explainable AI (SHAP) feature attribution and regulatory audit trail.
+
+---
+
+### 3.2 Page-by-Page Technical Audit
+
+#### Page 1: `DashboardPage.jsx` (Section Controller Command Deck)
+- **UI Elements:**
+  - Division header (`NORTHERN RAILWAY • DELHI DIVISION`).
+  - Horizon toggles (`24-Hour Real-Time`, `7-Day Tactical`, `30-Day Strategic`).
+  - Emergency toggle button (`Simulate Rail Fracture`).
+  - 4 KPI cards: Corridor Availability (94.8%), Track-Hours Saved (4.5 hrs), Clashes Averted (14), Solver Status.
+  - 4 Telemetry pills: TMS, SMMS, TDMS, COA.
+  - **Interactive 24-Hour Multi-Track Gantt Chart:** Plots blocks on `UP_MAIN`, `DN_MAIN`, and `GOODS_LOOP`.
+  - Block Inspector Drawer displaying block details, Private Numbers, and Caution Orders.
+- **Current Data Implementation:**
+  - **100% Mock Data:** The 19 corridor blocks, 7-day tactical cards, and 30-day strategic items are static JavaScript objects.
+  - The "Corridor Section" selector (`NDLS-AGC`, `GZB-ALJN`, etc.) does not fetch new tracks.
+  - "Simulate Rail Fracture" simply updates local React state without running a real rescheduling algorithm.
+- **Backend Requirement:** Needs REST endpoints for corridor timelines, real train runs, active maintenance possessions, and an emergency re-solve trigger.
+
+---
+
+#### Page 2: `OptimizerPage.jsx` (CP-SAT Solver & Cross-Dept Bidding)
+- **UI Elements:**
+  - "Run OR-Tools Optimizer" button with simulated solver progress bar.
+  - Siloed vs. Bundled comparison widget (9.0 hrs siloed vs. 3.5 hrs bundled).
+  - Multi-objective weight sliders (Punctuality, Safety, Utilization).
+  - Department defect ingestion table (TMS, SMMS, TDMS).
+  - **Cross-Department Bidding Panel (USP #4):** Table of active bids with an interactive submission form ("Submit Bid to AI Pool").
+  - Human-in-the-Loop action buttons: "Approve & Issue PN", "Adjust Window", "Decline & Re-Solve".
+- **Current Data Implementation:**
+  - **Simulated Solver:** Clicking "Run Optimizer" triggers a 1200ms `setTimeout()` and renders a hardcoded result.
+  - **Slider Disconnect:** Changing the weight sliders updates state numbers but has no effect on solver outputs.
+  - **In-Memory Bids:** Submitted bids are appended to a temporary React state array and lost on page refresh.
+- **Backend Requirement:** Real Python microservice running Google OR-Tools CP-SAT, receiving task inputs and weights, and returning mathematical schedules.
+
+---
+
+#### Page 3: `FreightForecastPage.jsx` (Goods-Train Density & Calm Windows)
+- **UI Elements:**
+  - 4 Top metric cards (Freight tonnage, active rakes, transit speed, calm windows).
+  - 24-Hour traffic density vs. maintenance slots inline SVG chart comparing actual goods occupancy with a Prophet forecast curve.
+  - "Calm Windows" recommendation cards (e.g., Palwal–Kosi Kalan 01:30–04:45 AM).
+  - Live freight rake tracker (BOXN coal, BCNA grain, BTPN oil, CONCOR containers).
+- **Current Data Implementation:**
+  - **Hardcoded SVG:** The Prophet forecast and actual traffic curves are hardcoded SVG bezier paths (`d="M 50 240 Q 120 250..."`).
+  - Selecting different corridors does not update the chart or calm windows.
+- **Backend Requirement:** Time-series forecast model (Prophet/LightGBM) trained on historical loading patterns, combined with live section occupancy to detect free time windows.
+
+---
+
+#### Page 4: `FieldDispatchPage.jsx` (2G SMS Terminal & Form T/348M)
+- **UI Elements:**
+  - 3 Fallback channel status cards (WhatsApp, 2G SMS, IVR Voice).
+  - Two-column terminal: SMS chat thread on the left, NLP/syntax parser on the right.
+  - Quick action test buttons (`Submit Block Request`, `Confirm Track Clearance`, `Report Emergency Fracture`).
+  - Printable **Form T/348M (Authority to Occupy Track for Maintenance)** modal with official layout and signatures.
+- **Current Data Implementation:**
+  - **Simulated Responses:** Typing or clicking quick test buttons appends messages to an array; system replies are hardcoded strings triggered after 600ms.
+  - The Form T/348M preview is static and does not dynamically populate from parsed SMS data.
+- **Backend Requirement:** An SMS parser endpoint that extracts structured block parameters from text (or receives webhooks), checks feasibility against the schedule, and generates dynamic Form T/348M permits.
+
+---
+
+#### Page 5: `WeatherPage.jsx` (IMD Monsoon & Weather Risk Radar)
+- **UI Elements:**
+  - 4 Live telemetry cards (Regional advisory, bridges monitored, rail temperature, rescheduled blocks).
+  - "Simulate IMD Cloudburst Alert" toggle button.
+  - Contingency action plan banner (postponed tamping, shifted indoor tasks, bridge scour watch).
+  - Vulnerable sections table (Yamuna Bridge, Vindhya Ghat, Kanpur approach, Mathura tangent).
+- **Current Data Implementation:**
+  - Purely local boolean state toggle. No live weather API integration.
+- **Backend Requirement:** Service to ingest IMD alert data (or Open-Meteo), map alerts to railway chainage (KM marks), and inject safety constraints into the optimizer.
+
+---
+
+#### Page 6: `AuditPage.jsx` (Explainable AI & Regulatory Compliance)
+- **UI Elements:**
+  - Audit statistics (100% compliance, 24 tokens, 1,420 events).
+  - XAI Decision Inspector with SHAP feature attribution bars (TGI Defect Urgency, Traffic Gap, OHE Interlock, Crew Proximity).
+  - Direct citations to railway operating manuals (**IRPWM Para 808**, **ACTM Vol II Para 2063**, **IRSEM Section 3**).
+  - Cryptographic Private Number (PN) audit ledger table.
+- **Current Data Implementation:**
+  - Static dictionary lookup for blocks `BLK-101` and `BLK-102`.
+  - Hardcoded audit ledger array.
+- **Backend Requirement:** Model attribution endpoint (returning calculated feature contributions), persistent audit ledger, and cryptographic Private Number hashing.
+
+---
+
+## 4. Frontend vs. Backend Gap Matrix
+
+| Capability | Current Frontend State | Required Backend Engine |
+| :--- | :--- | :--- |
+| **Authentication & Roles** | Visual modal; immediate client-side redirect to dashboard | JWT-based auth with roles (Section Controller, SSE P-Way, S&T Engineer, TRD Supervisor) |
+| **Corridor Schedules** | Static 19-block array for `NDLS-AGC` | Dynamic database-backed timetable & maintenance block queries |
+| **CP-SAT Optimization** | 1.2s `setTimeout()` with static output | Real Google OR-Tools CP-SAT formulation with hard/soft constraints |
+| **Shadow Block Bundling** | Pre-bundled mock entries | Spatial-temporal clustering algorithm matching overlapping requests |
+| **Priority Scoring** | Static severity labels | Multi-factor rule + ML scoring engine (Criticality × Urgency × Impact) |
+| **Freight Forecasting** | Static SVG chart curves | Dynamic hourly traffic density estimator & calm window calculator |
+| **2G SMS Field Terminal** | Simulated chat loop | Regex & keyword parser processing SMS syntax and returning official PNs |
+| **Permit Generation** | Static Form T/348M HTML | Dynamic permit generator producing signed payloads and printable data |
+| **Weather Integration** | Simulation button toggling local state | Environmental risk evaluator flagging affected sections and auto-rescheduling |
+| **Regulatory Audit Trail** | Hardcoded 4-row ledger | Tamper-evident, append-only SQLite/PostgreSQL audit log |
+
+---
+
+## 5. Target Backend Architecture
+
+To build a reliable prototype that satisfies the SIH judges, we will implement a **Python FastAPI backend** with a clean, modular design:
+
+```
+                                 ┌────────────────────────────────────────────────────────┐
+                                 │               REACT FRONTEND (PORT 5173)               │
+                                 │     Dashboard • Optimizer • Freight • Dispatch • etc.  │
+                                 └───────────────────────────┬────────────────────────────┘
+                                                             │ REST / JSON (CORS Enabled)
+                                                             ▼
+                                 ┌────────────────────────────────────────────────────────┐
+                                 │            FASTAPI BACKEND ENGINE (PORT 8000)          │
+                                 │                     `backend/main.py`                  │
+                                 ├────────────────────────────────────────────────────────┤
+                                 │  [Router: /api/auth]      - Department & Controller SSO│
+                                 │  [Router: /api/corridors] - Timetables, Blocks & Gantt │
+                                 │  [Router: /api/optimize]  - Google OR-Tools CP-SAT     │
+                                 │  [Router: /api/bids]      - Cross-Dept Bidding System  │
+                                 │  [Router: /api/freight]   - goods density & calm window│
+                                 │  [Router: /api/dispatch]  - 2G SMS parsing & Form T348M│
+                                 │  [Router: /api/weather]   - IMD weather risk telemetry │
+                                 │  [Router: /api/audit]     - XAI SHAP & PN Audit Ledger │
+                                 └───────────────────────────┬────────────────────────────┘
+                                                             │
+                  ┌──────────────────────────────────────────┼──────────────────────────────────────────┐
+                  ▼                                          ▼                                          ▼
+     ┌────────────────────────┐                 ┌────────────────────────┐                 ┌────────────────────────┐
+     │  OR-Tools CP-SAT Engine│                 │   ML / Rule Scorers    │                 │ SQLite / JSON Storage  │
+     │  `services/solver.py`  │                 │  `services/scorer.py`  │                 │ `database.py` / models │
+     │  - Collision checks    │                 │  - TGI/USFD urgency    │                 │ - Corridors & Trains   │
+     │  - Headway buffers     │                 │  - Freight calm window │                 │ - Maintenance Demands  │
+     │  - Shadow bundling     │                 │  - Weather constraints │                 │ - Bids & Audit Ledger  │
+     └────────────────────────┘                 └────────────────────────┘                 └────────────────────────┘
+```
+
+---
+
+## 6. Prioritized Backend Implementation Plan
+
+To balance hackathon deadlines with maximum judge impact, the development sequence is structured into three clear priority tiers:
+
+### Phase 1: High Priority (Core Engine & Table Stakes) — *Do First*
+*These deliver an end-to-end working system from data ingestion to optimization and visualization.*
+
+1. **Backend Foundation & Database Setup:**
+   - Initialize FastAPI project with CORS middleware.
+   - Seed realistic railway data: Corridors (`NDLS-AGC`, `GZB-ALJN`), scheduled trains (Gatimaan, Rajdhani, Vande Bharat, goods rakes), and pending maintenance requests (P-Way, S&T, TRD).
+2. **Real Google OR-Tools CP-SAT Solver Service:**
+   - Model the block scheduling problem:
+     - **Decision Variables:** Block start time, duration, assigned track.
+     - **Hard Constraints:** No overlap between trains and maintenance on the same line; minimum safe headway (15 min); OHE isolation safety rules.
+     - **Soft Objectives:** Minimize passenger train delay penalty; maximize bundled shadow blocks; satisfy urgent maintenance first.
+   - Return realistic execution logs, solve times, and computed metrics.
+3. **Task Prioritization Engine:**
+   - Formula-based scoring (0–100) combining IRPWM criteria (TGI < 55), overdue days, and line speed potential.
+4. **Corridor Gantt API (`/api/corridors/{id}/timeline`):**
+   - Provide dynamic 24-hour timeline data so the Gantt chart reflects true solver schedules.
+5. **Frontend API Integration:**
+   - Replace static data in `DashboardPage.jsx` and `OptimizerPage.jsx` with real API client calls.
+
+---
+
+### Phase 2: Medium Priority (SIH Winning USPs) — *Do Next*
+*These cover the specific features that separate our prototype from all competitors.*
+
+6. **2G SMS Parser & Dispatch Engine (USP #1):**
+   - Implement regex/syntax parser for SMS format:  
+     `BLOCK REQ | SEC:<FROM>-<TO> | KM:<START>-<END> | DEPT:<DEPT> | TYPE:<TYPE> | DUR:<HRS>`
+   - Validate requested block against current timetable.
+   - Auto-generate cryptographic Private Number (`PN-XXXXXX-DIV`).
+   - Endpoint to populate and return dynamic **Form T/348M** payloads.
+7. **Freight Dynamic Forecaster & Calm Window Finder (USP #2):**
+   - Endpoint calculating hourly goods train density for specified corridor sections.
+   - Algorithmic detector finding time gaps $\ge 2.5$ hours with zero coal/oil rake conflicts ("Calm Windows").
+8. **Weather Risk Adaptation Engine (USP #3):**
+   - Endpoint accepting weather alerts (rainfall intensity, soil moisture, rail temperature).
+   - Dynamic re-scheduling hook: marks vulnerable sections as restricted and shifts outdoor maintenance to safe slots.
+9. **Human-in-the-Loop Controller Actions:**
+   - Endpoints for `approve`, `modify`, and `reject` block plans, updating possession status in real time.
+
+---
+
+### Phase 3: Polish & Refinement (Differentiators & Proof Points) — *Final Polish*
+
+10. **Cross-Department Bidding System (USP #4):**
+    - Endpoints for submitting, listing, and pooling maintenance bids.
+11. **Explainable AI (XAI) & Regulatory Citations:**
+    - Endpoint returning feature attribution breakdowns (TGI Urgency, Traffic Gap, OHE Interlock, Crew Proximity) and official regulatory manual citations (IRPWM Para 808, ACTM Vol II Para 2063, IRSEM Section 3).
+12. **Tamper-Evident Audit Ledger:**
+    - Persistent event ledger tracking every grant, cancellation, and Private Number generation.
+
+---
+
+## 7. Recommended API Endpoint Specification
+
+| Method | Endpoint | Purpose | Linked Frontend Page |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/health` | Service health & solver availability check | All pages |
+| `GET` | `/api/corridors` | List available rail corridors & track sections | `DashboardPage`, `Hero` |
+| `GET` | `/api/corridors/{id}/timeline` | 24-hour timetable, trains, and maintenance blocks | `DashboardPage` |
+| `POST` | `/api/optimize` | Run OR-Tools CP-SAT solver with custom weights | `OptimizerPage` |
+| `POST` | `/api/disruption/fracture` | Simulate emergency rail break & trigger re-solve | `DashboardPage` |
+| `GET` | `/api/bids` | Fetch active department maintenance bids | `OptimizerPage` |
+| `POST` | `/api/bids` | Submit new maintenance bid to AI pool | `OptimizerPage` |
+| `POST` | `/api/bids/bundle` | Cluster compatible bids into a shadow block | `OptimizerPage` |
+| `GET` | `/api/freight/density` | Hourly goods train density curve & calm windows | `FreightForecastPage` |
+| `POST` | `/api/dispatch/parse-sms` | Parse 2G SMS text, check constraints, return PN | `FieldDispatchPage` |
+| `GET` | `/api/dispatch/permit/{pn}` | Get dynamic Form T/348M permit document | `FieldDispatchPage` |
+| `GET` | `/api/weather/telemetry` | Regional weather hazards & vulnerable track marks | `WeatherPage` |
+| `POST` | `/api/weather/alert` | Simulate cloudburst/heatwave and trigger reschedule | `WeatherPage` |
+| `GET` | `/api/audit/ledger` | Query tamper-evident block possession audit trail | `AuditPage` |
+| `GET` | `/api/audit/xai/{block_id}`| Get SHAP feature weights & manual citations | `AuditPage` |
+
+---
+
+## 8. Summary & Next Steps
+
+1. **Frontend Assessment:** The frontend is **feature-complete and visually presentation-ready**. It requires no major visual overhaul—only API client integration to replace mock data with live responses.
+2. **Backend Plan:** Building the backend in Python using **FastAPI + Google OR-Tools CP-SAT** allows us to directly implement the core solver logic, ML scoring, and SIH differentiator APIs.
+3. **Immediate Action:** Initialize the `backend/` directory, set up dependencies (`fastapi`, `uvicorn`, `ortools`, `pydantic`), seed the railway domain datasets, and wire the first live endpoints to `DashboardPage` and `OptimizerPage`.

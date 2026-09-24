@@ -1,0 +1,211 @@
+/* ==========================================================================
+   Sahayak Rail — Low-Connectivity Field Gateway Banner (USP #1, Image 4)
+   ========================================================================== */
+
+.irctc-app-promo {
+  padding: 30px 0 60px 0;
+  background: #f4f7fb;
+}
+
+.irctc-app-promo__card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(0, 47, 90, 0.08);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.irctc-app-promo__visual {
+  flex: 1.2;
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  background: #002f5a;
+}
+
+.irctc-app-promo__img {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.irctc-app-promo__card:hover .irctc-app-promo__img {
+  transform: scale(1.03);
+}
+
+.irctc-app-promo__badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  padding: 8px 14px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.irctc-app-promo__badge-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.irctc-app-promo__badge-text strong {
+  font-size: 0.85rem;
+  color: #005494;
+  line-height: 1.1;
+}
+
+.irctc-app-promo__badge-text span {
+  font-size: 0.65rem;
+  color: #f2722b;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.irctc-app-promo__content {
+  flex: 1;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.irctc-app-promo__tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #f2722b;
+  background: #fff3ec;
+  border: 1px solid #fcd9c3;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  width: fit-content;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.irctc-app-promo__title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #005494;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.irctc-app-promo__desc {
+  font-size: 0.94rem;
+  color: #486581;
+  line-height: 1.55;
+}
+
+.irctc-app-promo__desc strong {
+  color: #102a43;
+}
+
+.irctc-app-promo__features {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 6px 0;
+}
+
+.irctc-app-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.irctc-app-feature__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #eef5fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.irctc-app-feature__label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #102a43;
+}
+
+.irctc-app-feature__sub {
+  font-size: 0.74rem;
+  color: #627d98;
+}
+
+.irctc-app-promo__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.irctc-app-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #005494;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 84, 148, 0.28);
+  transition: all 0.2s ease;
+}
+
+.irctc-app-btn-primary:hover {
+  background: #003e6d;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 84, 148, 0.38);
+}
+
+.irctc-app-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  color: #005494;
+  border: 1.5px solid #005494;
+  padding: 11px 22px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.irctc-app-btn-secondary:hover {
+  background: #f0f7ff;
+}
+
+@media (max-width: 900px) {
+  .irctc-app-promo__card {
+    flex-direction: column;
+  }
+
+  .irctc-app-promo__visual {
+    width: 100%;
+    min-height: 220px;
+  }
+
+  .irctc-app-promo__content {
+    padding: 24px;
+  }
+
+  .irctc-app-promo__title {
+    font-size: 1.8rem;
+  }
+}

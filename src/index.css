@@ -1,0 +1,228 @@
+/* ============================================
+   Sahayak Rail — Official Indian Railways & IRCTC Theme
+   Clean · Official Government Portal · High-Speed Railway Grade
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Open+Sans:wght@400;600;700&family=Roboto+Mono:wght@400;500;600&display=swap');
+
+/* CSS Custom Properties */
+:root {
+  /* Official IRCTC Brand Tokens */
+  --irctc-blue-primary: #005494;       /* Official IRCTC Header Blue */
+  --irctc-blue-dark: #002f5a;          /* Official Dark Navy Capsule Nav */
+  --irctc-blue-deep: #001f3f;          /* Deepest rail navy */
+  --irctc-blue-btn: #1352b2;           /* Primary pill action button */
+  --irctc-blue-hover: #004377;
+  --irctc-blue-subtle: #eef5fc;        /* Light blue highlight */
+  
+  --irctc-orange: #f2722b;             /* Top advisory bar & orange accent */
+  --irctc-orange-hover: #e05e16;
+  --irctc-orange-light: #fff3ec;
+  --irctc-orange-border: #fcd9c3;
+  --irctc-amber-advisory: #ef7e22;
+
+  /* Indian Railways System Theme Tokens (Light, Crisp, Portal Grade) */
+  --ir-bg-primary: #f4f7fb;            /* Crisp portal background */
+  --ir-bg-surface: #ffffff;            /* Card / surface background */
+  --ir-bg-card: #ffffff;
+  --ir-bg-elevated: #ffffff;
+  
+  --ir-text-primary: #102a43;          /* Deep navy text */
+  --ir-text-secondary: #334e68;        /* Slate text */
+  --ir-text-muted: #627d98;           /* Muted text */
+  --ir-border: #d9e2ec;                /* Border color */
+  --ir-border-light: #e8eef5;
+  
+  --ir-accent-blue: #005494;
+  --ir-accent-orange: #f2722b;
+  --ir-accent-green: #10b981;
+  --ir-accent-yellow: #f59e0b;
+  --ir-danger: #ef4444;
+
+  /* Blue Palette Scale */
+  --ir-blue-900: #001d4a;
+  --ir-blue-800: #002a6b;
+  --ir-blue-700: #003580;
+  --ir-blue-600: #004aad;
+  --ir-blue-500: #005494;
+  --ir-blue-400: #1a73e8;
+  --ir-blue-300: #4a9af5;
+  --ir-blue-200: #8fc4ff;
+  --ir-blue-100: #c8e2ff;
+  --ir-blue-50: #eef5fc;
+
+  /* Accents */
+  --accent-orange: #f2722b;
+  --accent-orange-light: #ff8f60;
+  --accent-green: #10b981;
+  --accent-green-light: #34d399;
+  --accent-red: #ef4444;
+
+  /* Neutrals */
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --gray-950: #020617;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', sans-serif;
+  --font-family-home: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Roboto Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows - Modern elevated clean shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 31, 63, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 31, 63, 0.1);
+  --shadow-xl: 0 16px 36px rgba(0, 31, 63, 0.12);
+  --shadow-card: 0 4px 20px rgba(0, 47, 90, 0.07);
+  --shadow-hover: 0 10px 30px rgba(0, 84, 148, 0.16);
+
+  /* Layout */
+  --max-width: 1240px;
+  --navbar-height: 56px;
+}
+
+/* Global Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14.5px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--ir-text-primary);
+  background-color: var(--ir-bg-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.2s ease;
+}
+
+input, select, textarea {
+  font-family: var(--font-family);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Selection Styling */
+::selection {
+  background-color: var(--irctc-blue-primary);
+  color: #ffffff;
+}
+
+/* Scrollbar — Crisp clean IRCTC styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--irctc-blue-primary);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}

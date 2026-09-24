@@ -1,0 +1,22 @@
+/* App-level styles */
+.app {
+  min-height: 100vh;
+  background: #f4f8fc;
+  color: #1e293b;
+}
+
+.app-main-content {
+  min-height: calc(100vh - 64px);
+  animation: pageFadeIn 0.25s ease-out;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,429 @@
+/* ==========================================================================
+   Sahayak Rail — Explainable AI (XAI) & Regulatory Audit Styles (Tessellation Crystalline Theme)
+   Palette: Mint (#005494), Electric Azure (#005494), Amethyst (#f2722b),
+   Soft Lilac (#f2722b), Midnight Navy (#f4f8fc - #ffffff)
+   ========================================================================== */
+
+.audit-page {
+  background: linear-gradient(180deg, #edf4fb 0%, #f4f8fc 60%, #ffffff 100%);
+  color: #333333;
+  min-height: 100vh;
+  padding: 24px 20px 36px 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Header */
+.audit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(0, 84, 148, 0.15);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.audit-header__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #f2722b;
+  background: rgba(228, 187, 211, 0.12);
+  border: 1px solid rgba(228, 187, 211, 0.3);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.audit-header__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f2722b;
+  box-shadow: 0 0 10px #f2722b;
+}
+
+.audit-header__title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #1e293b;
+  margin: 0 0 6px 0;
+}
+
+.audit-header__title span {
+  background: linear-gradient(135deg, #005494 0%, #005494 50%, #f2722b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.audit-header__subtitle {
+  font-size: 0.88rem;
+  color: #64748b;
+  max-width: 760px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.audit-header__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.audit-btn-secondary {
+  background: #ffffff;
+  border: 1px solid rgba(0, 84, 148, 0.15);
+  color: #333333;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+}
+
+.audit-btn-secondary:hover {
+  background: #f0f7ff;
+  border-color: #005494;
+  color: #005494;
+}
+
+.audit-btn-primary {
+  background: linear-gradient(135deg, #005494, #2B4C94);
+  border: 1px solid #005494;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 84, 148, 0.08);
+  transition: all 0.2s;
+}
+
+.audit-btn-primary:hover {
+  background: linear-gradient(135deg, #208AC5, #1F3A78);
+  box-shadow: 0 6px 22px rgba(103, 212, 244, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Stats Grid */
+.audit-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.audit-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 84, 148, 0.15);
+  border-left: 3px solid #f2722b;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 84, 148, 0.08);
+}
+
+.audit-card:nth-child(2) { border-left-color: #005494; }
+.audit-card:nth-child(3) { border-left-color: #005494; }
+.audit-card:nth-child(4) { border-left-color: #f2722b; }
+
+.audit-card__label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.audit-card__val {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.text-white { color: #1e293b; }
+
+.audit-card__sub {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+/* XAI Section */
+.audit-xai-section {
+  background: #ffffff;
+  border: 1px solid rgba(0, 84, 148, 0.15);
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 26px;
+  box-shadow: 0 4px 20px rgba(0, 84, 148, 0.08);
+}
+
+.xai-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.xai-header h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.xai-header p {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.xai-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.xai-select-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.xai-select-btn:hover {
+  background: #e0effe;
+  color: #005494;
+}
+
+.xai-select-btn.active {
+  background: linear-gradient(135deg, #005494, #2B4C94);
+  border-color: #005494;
+  color: #ffffff;
+}
+
+/* Detail Box */
+.xai-detail-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.xai-summary-header {
+  margin-bottom: 14px;
+}
+
+.confidence-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.xai-summary-header h4 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.xai-meta {
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.xai-reasoning-quote {
+  background: rgba(242, 114, 43, 0.08);
+  border-left: 3px solid #f2722b;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.45;
+  margin-bottom: 22px;
+}
+
+/* SHAP Factors */
+.shap-factors-container h5, .regulations-container h5 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+
+.shap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.shap-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.shap-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.shap-pct {
+  color: #005494;
+}
+
+.shap-bar-bg {
+  background: #e2e8f0;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.shap-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #005494 0%, #005494 50%, #f2722b 100%);
+}
+
+.shap-val {
+  font-size: 0.78rem;
+  margin-bottom: 4px;
+}
+
+.shap-desc {
+  font-size: 0.72rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Regulations */
+.reg-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reg-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+}
+
+.reg-tag {
+  background: rgba(0, 84, 148, 0.08);
+  color: #005494;
+  font-weight: 700;
+  font-family: monospace;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 84, 148, 0.2);
+  white-space: nowrap;
+}
+
+.reg-text {
+  color: #334155;
+}
+
+/* Ledger Section */
+.audit-ledger-section {
+  background: #ffffff;
+  border: 1px solid rgba(0, 84, 148, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 84, 148, 0.08);
+}
+
+.ledger-header {
+  padding: 16px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 84, 148, 0.15);
+}
+
+.ledger-header h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 2px 0;
+}
+
+.ledger-header p {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.ledger-table-wrapper {
+  overflow-x: auto;
+}
+
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.82rem;
+}
+
+.ledger-table th {
+  background: #f8fafc;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ledger-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+.ledger-table tr:hover {
+  background: rgba(0, 84, 148, 0.04);
+}
+
+.dept-tag {
+  background: rgba(0, 84, 148, 0.15);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: #005494;
+}
+
+.audit-status-badge {
+  font-weight: 700;
+  font-size: 0.75rem;
+}

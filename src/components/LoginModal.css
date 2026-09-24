@@ -1,0 +1,446 @@
+/* ==========================================================================
+   Sahayak Rail — Official IRCTC Login Modal & Department Login (Image 2 + Image 5)
+   ========================================================================== */
+
+.irctc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(4, 21, 43, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: modalFadeIn 0.25s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.irctc-modal-card {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 25px 65px rgba(0, 20, 50, 0.35), 0 0 1px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Graphic Header Banner */
+.irctc-modal-header {
+  position: relative;
+  height: 124px;
+  background: linear-gradient(105deg, #fff3eb 0%, #fffbf8 30%, #f0f7ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid #eef2f6;
+  overflow: hidden;
+}
+
+.irctc-modal-header__train-wrapper {
+  position: absolute;
+  left: -20px;
+  top: 0;
+  bottom: 0;
+  width: 58%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.irctc-modal-header__train {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  mix-blend-mode: multiply;
+  opacity: 0.95;
+}
+
+.irctc-modal-header__logos {
+  margin-left: auto;
+  margin-right: 36px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 2;
+}
+
+.irctc-modal-header__crest,
+.irctc-modal-header__irctc {
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
+  transition: transform 0.2s ease;
+}
+
+.irctc-modal-header__crest:hover,
+.irctc-modal-header__irctc:hover {
+  transform: scale(1.05);
+}
+
+.irctc-modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #d9e2ec;
+  color: #486581;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.irctc-modal-close-btn:hover {
+  background: #f0f4f8;
+  color: #102a43;
+  transform: scale(1.08);
+}
+
+/* Modal Tabs */
+.irctc-modal-tabs {
+  display: flex;
+  background: #ffffff;
+  border-bottom: 1.5px solid #e2e8f0;
+}
+
+.irctc-modal-tab {
+  flex: 1;
+  padding: 14px 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #627d98;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.irctc-modal-tab:hover {
+  color: var(--irctc-blue-primary);
+  background: #f8fafc;
+}
+
+.irctc-modal-tab.active {
+  color: var(--irctc-blue-primary);
+  border-bottom-color: var(--irctc-blue-primary);
+  background: #ffffff;
+}
+
+/* Modal Body */
+.irctc-modal-body {
+  padding: 24px 28px;
+  overflow-y: auto;
+  max-height: calc(94vh - 180px);
+}
+
+/* DEPARTMENT LOGIN (Image 5 styled like Image 2) */
+.irctc-dept-login {
+  animation: fadeIn 0.2s ease;
+}
+
+.irctc-dept-pills {
+  display: inline-flex;
+  background: #f1f5f9;
+  border-radius: 9999px;
+  padding: 3px;
+  margin-bottom: 18px;
+  gap: 4px;
+}
+
+.irctc-dept-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.irctc-dept-pill.active {
+  background: var(--irctc-blue-dark);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 47, 90, 0.25);
+}
+
+.irctc-dept-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #002f5a;
+  letter-spacing: 0.02em;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.irctc-dept-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Input group with clean rounded borders matching Image 5 */
+.irctc-input-group {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid #d9e2ec;
+  border-radius: 8px;
+  padding: 0 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.irctc-input-group:focus-within {
+  border-color: var(--irctc-blue-primary);
+  box-shadow: 0 0 0 3px rgba(0, 84, 148, 0.12);
+}
+
+.irctc-input-icon {
+  color: #829ab1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.irctc-input,
+.irctc-select {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  font-size: 0.92rem;
+  color: #102a43;
+  outline: none;
+  font-family: inherit;
+}
+
+.irctc-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23627D98' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  padding-right: 24px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.irctc-input::placeholder {
+  color: #9fb3c8;
+}
+
+/* Primary Button (Image 5 LOGIN TO DASHBOARD) */
+.irctc-btn-primary {
+  margin-top: 10px;
+  width: 100%;
+  background: #002f5a;
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 47, 90, 0.28);
+  transition: all 0.2s ease;
+}
+
+.irctc-btn-primary:hover {
+  background: #004377;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 47, 90, 0.35);
+}
+
+.irctc-btn-primary:active {
+  transform: translateY(0);
+}
+
+.irctc-dept-footer {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.irctc-muted {
+  color: #627d98;
+  margin-right: 5px;
+}
+
+.irctc-link {
+  color: var(--irctc-blue-primary);
+  font-weight: 600;
+  transition: text-decoration 0.2s;
+}
+
+.irctc-link:hover {
+  text-decoration: underline;
+}
+
+/* USER LOGIN (Image 2) */
+.irctc-user-login {
+  animation: fadeIn 0.2s ease;
+}
+
+.irctc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.irctc-floating-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.irctc-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #486581;
+}
+
+.irctc-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid #d9e2ec;
+  border-radius: 8px;
+  padding: 0 14px;
+  transition: all 0.2s;
+}
+
+.irctc-input-wrapper:focus-within {
+  border-color: var(--irctc-blue-primary);
+  box-shadow: 0 0 0 3px rgba(0, 84, 148, 0.12);
+}
+
+.irctc-trailing-icon {
+  color: #829ab1;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.irctc-eye-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.irctc-eye-btn:hover {
+  color: #102a43;
+}
+
+.irctc-forgot-row {
+  text-align: center;
+  margin: 4px 0;
+  font-size: 0.85rem;
+}
+
+/* Blue Pill Button (Image 2 LOGIN) */
+.irctc-btn-pill-blue {
+  width: 100%;
+  background: linear-gradient(135deg, #2b50d8 0%, #1a3cb0 100%);
+  color: #ffffff;
+  padding: 13px 24px;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(26, 60, 176, 0.32);
+  transition: all 0.2s ease;
+}
+
+.irctc-btn-pill-blue:hover {
+  background: linear-gradient(135deg, #375df0 0%, #2045c8 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(26, 60, 176, 0.4);
+}
+
+/* OR Divider */
+.irctc-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 6px 0;
+}
+
+.irctc-divider::before,
+.irctc-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.irctc-divider span {
+  padding: 0 12px;
+  color: #829ab1;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* Outline Pill Button */
+.irctc-btn-outline {
+  width: 100%;
+  background: #ffffff;
+  color: #334e68;
+  border: 1.5px solid #d9e2ec;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.irctc-btn-outline strong {
+  color: #1a3cb0;
+  font-weight: 700;
+}
+
+.irctc-btn-outline:hover {
+  background: #f8fafc;
+  border-color: #bcccdc;
+  color: #102a43;
+}

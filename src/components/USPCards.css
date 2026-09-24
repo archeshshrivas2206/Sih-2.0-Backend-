@@ -1,0 +1,446 @@
+/* ============================================
+   USP Cards — Stripe-style feature showcase
+   ============================================ */
+
+.usp-section {
+  position: relative;
+  padding: var(--space-24) 0;
+  background: #e0f7fa; /* Cyan colored for strong differentiation */
+  overflow: hidden;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.usp-section__header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto var(--space-16);
+  padding: 0 var(--space-6);
+}
+
+.usp-section__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-4);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--ir-blue-700);
+  background: var(--ir-blue-50);
+  border: 1px solid var(--ir-blue-100);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-4);
+}
+
+.usp-section__title {
+  font-size: clamp(2rem, 4vw, var(--font-size-4xl));
+  font-weight: 800;
+  color: var(--ir-blue-900);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: var(--space-4);
+}
+
+.usp-section__subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--gray-500);
+  line-height: 1.7;
+}
+
+/* Cards Grid — 3x2 */
+.usp-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Single Card */
+.usp-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  transition: all var(--transition-base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.usp-card:hover {
+  border-color: var(--ir-blue-200);
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+}
+
+.usp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ir-blue-400), var(--ir-blue-600));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.usp-card:hover::before { opacity: 1; }
+
+.usp-card__expand {
+  position: absolute;
+  top: var(--space-6); right: var(--space-6);
+  width: 32px; height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.usp-card:hover .usp-card__expand {
+  background: var(--ir-blue-50);
+  border-color: var(--ir-blue-200);
+}
+
+.usp-card__expand svg { width: 14px; height: 14px; color: var(--gray-500); }
+.usp-card:hover .usp-card__expand svg { color: var(--ir-blue-600); }
+
+.usp-card__heading {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--ir-blue-900);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-4);
+  max-width: 240px;
+}
+
+.usp-card__description {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  line-height: 1.7;
+  margin-bottom: var(--space-8);
+}
+
+.usp-card__visual {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 240px;
+  position: relative;
+}
+
+/* ========================================
+   CARD 1 — AI Optimizer visual
+   ======================================== */
+.usp-visual--optimizer {
+  background: linear-gradient(180deg, var(--white) 0%, var(--ir-blue-50) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  width: 100%;
+}
+
+.optimizer-demo { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.optimizer-demo__row {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.optimizer-demo__icon {
+  width: 28px; height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.optimizer-demo__icon--blue { background: var(--ir-blue-100); color: var(--ir-blue-600); }
+.optimizer-demo__icon--orange { background: #FFF0E6; color: var(--accent-orange); }
+.optimizer-demo__icon--green { background: #E6F9F1; color: var(--accent-green); }
+.optimizer-demo__icon svg { width: 14px; height: 14px; }
+
+.optimizer-demo__text {
+  font-size: var(--font-size-xs); font-weight: 600;
+  color: var(--gray-700); flex: 1;
+}
+
+.optimizer-demo__badge {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: var(--radius-full);
+  color: var(--white);
+}
+.optimizer-demo__badge--solved { background: var(--accent-green); }
+.optimizer-demo__badge--pending { background: var(--accent-orange); }
+
+.optimizer-demo__result {
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: var(--space-3);
+  background: linear-gradient(135deg, var(--ir-blue-700), var(--ir-blue-500));
+  border-radius: var(--radius-lg);
+  color: var(--white); font-size: var(--font-size-sm); font-weight: 700;
+}
+.optimizer-demo__result svg { width: 16px; height: 16px; }
+
+/* ========================================
+   CARD 2 — XAI visual
+   ======================================== */
+.usp-visual--xai {
+  background: linear-gradient(180deg, var(--white) 0%, #FFF8F0 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  width: 100%;
+}
+.xai-demo { display: flex; flex-direction: column; gap: var(--space-3); }
+.xai-demo__rule {
+  background: var(--white); border-radius: var(--radius-md);
+  padding: var(--space-3); border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-sm);
+}
+.xai-demo__rule-header {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.xai-demo__rule-icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #FFF0E6; display: flex; align-items: center;
+  justify-content: center; font-size: 10px;
+}
+.xai-demo__rule-label {
+  font-size: 10px; font-weight: 700; color: var(--accent-orange);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.xai-demo__rule-text {
+  font-size: var(--font-size-xs); color: var(--gray-700);
+  line-height: 1.5; font-weight: 500;
+}
+.xai-demo__bar-group { display: flex; flex-direction: column; gap: var(--space-2); }
+.xai-demo__bar { display: flex; align-items: center; gap: var(--space-2); }
+.xai-demo__bar-label {
+  font-size: 10px; font-weight: 600; color: var(--gray-600);
+  width: 60px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.xai-demo__bar-track {
+  flex: 1; height: 6px; background: var(--gray-100);
+  border-radius: var(--radius-full); overflow: hidden;
+}
+.xai-demo__bar-fill { height: 100%; border-radius: var(--radius-full); }
+.xai-demo__bar-fill--high { background: var(--ir-blue-500); }
+.xai-demo__bar-fill--med { background: var(--ir-blue-300); }
+.xai-demo__bar-fill--low { background: var(--ir-blue-200); }
+.xai-demo__bar-value {
+  font-size: 10px; font-weight: 700; color: var(--gray-700);
+  width: 30px; text-align: right;
+}
+
+/* ========================================
+   CARD 3 — Human-in-the-Loop visual
+   ======================================== */
+.usp-visual--hitl {
+  background: linear-gradient(180deg, var(--white) 0%, #E6F9F1 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  width: 100%;
+}
+.hitl-demo { display: flex; flex-direction: column; gap: var(--space-3); }
+.hitl-demo__recommendation {
+  background: var(--white); border-radius: var(--radius-md);
+  padding: var(--space-3); border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-sm);
+}
+.hitl-demo__rec-header {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-xs); font-weight: 700; color: var(--ir-blue-700);
+}
+.hitl-demo__rec-header svg { width: 14px; height: 14px; }
+.hitl-demo__rec-text {
+  font-size: 11px; color: var(--gray-600);
+  line-height: 1.5; margin-bottom: var(--space-3);
+}
+.hitl-demo__actions { display: flex; gap: var(--space-2); }
+.hitl-demo__btn {
+  flex: 1; padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 11px; font-weight: 700; text-align: center;
+  transition: all var(--transition-fast); cursor: pointer;
+}
+.hitl-demo__btn--approve { background: var(--accent-green); color: var(--white); }
+.hitl-demo__btn--modify { background: var(--ir-blue-100); color: var(--ir-blue-700); }
+.hitl-demo__btn--reject { background: var(--gray-100); color: var(--gray-600); }
+.hitl-demo__sms {
+  background: var(--white); border-radius: var(--radius-md);
+  padding: var(--space-3); border: 1px solid var(--accent-green);
+  border-left: 3px solid var(--accent-green);
+}
+.hitl-demo__sms-header {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-bottom: var(--space-1); font-size: 10px; font-weight: 700;
+  color: var(--accent-green); text-transform: uppercase; letter-spacing: 0.05em;
+}
+.hitl-demo__sms-header svg { width: 12px; height: 12px; }
+.hitl-demo__sms-text {
+  font-size: 11px; color: var(--gray-700); line-height: 1.4;
+  font-family: 'Courier New', monospace;
+}
+
+/* ========================================
+   CARD 4 — Synthetic Data Generator visual
+   ======================================== */
+.usp-visual--data {
+  background: linear-gradient(180deg, var(--white) 0%, #f0f4ff 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  width: 100%;
+}
+.data-demo { display: flex; flex-direction: column; gap: var(--space-3); }
+.data-demo__header {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--gray-100);
+}
+.data-demo__header-icon { font-size: 16px; }
+.data-demo__header-text {
+  font-size: 12px; font-weight: 700; color: var(--ir-blue-800);
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.data-demo__table {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid var(--gray-100); border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.data-demo__row {
+  display: grid; grid-template-columns: 1fr 70px 40px;
+  padding: 7px 12px;
+  font-size: 11px; font-weight: 600; color: var(--gray-700);
+  align-items: center;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-50);
+}
+.data-demo__row:last-child { border-bottom: none; }
+.data-demo__row--header {
+  background: var(--gray-50);
+  font-size: 10px; font-weight: 700; color: var(--gray-500);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.data-demo__status {
+  text-align: center; font-size: 12px; font-weight: 700;
+}
+.data-demo__status--done { color: var(--accent-green); }
+.data-demo__footer {
+  font-size: 10px; font-weight: 600; color: var(--gray-500);
+  text-align: center; padding: var(--space-2);
+  background: var(--gray-50); border-radius: var(--radius-sm);
+}
+
+/* ========================================
+   CARD 5 — Multi-Channel Notification visual
+   ======================================== */
+.usp-visual--notify {
+  background: linear-gradient(180deg, var(--white) 0%, #f0fdf4 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  width: 100%;
+}
+.notify-demo {
+  display: flex; flex-direction: column;
+  align-items: center; gap: var(--space-1);
+}
+.notify-demo__step {
+  display: flex; align-items: center; gap: var(--space-3);
+  background: var(--white); border-radius: var(--radius-md);
+  padding: 8px 14px; width: 100%;
+  border: 1px solid var(--gray-100); box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+.notify-demo__step--active {
+  border-color: var(--accent-green);
+  background: #f0fdf4;
+}
+.notify-demo__step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--ir-blue-100); color: var(--ir-blue-700);
+  font-size: 11px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.notify-demo__step--active .notify-demo__step-num {
+  background: var(--accent-green); color: var(--white);
+}
+.notify-demo__step-content { flex: 1; }
+.notify-demo__step-label {
+  font-size: 12px; font-weight: 700; color: var(--gray-800);
+}
+.notify-demo__step-status {
+  font-size: 10px; font-weight: 600;
+}
+.notify-demo__step-status--success { color: var(--accent-green); }
+.notify-demo__step-status--standby { color: var(--gray-400); }
+.notify-demo__arrow {
+  font-size: 14px; color: var(--gray-300); font-weight: 700;
+  line-height: 1;
+}
+.notify-demo__badge {
+  margin-top: var(--space-2);
+  font-size: 10px; font-weight: 600; color: var(--gray-500);
+  text-align: center;
+  padding: var(--space-1) var(--space-3);
+  background: var(--gray-50); border-radius: var(--radius-full);
+}
+
+/* ========================================
+   CARD 6 — Freight Forecasting visual
+   ======================================== */
+.usp-visual--forecast {
+  background: linear-gradient(180deg, var(--white) 0%, #FFF8F0 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  width: 100%;
+}
+.forecast-demo { display: flex; flex-direction: column; gap: var(--space-3); }
+.forecast-demo__chart {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  border: 1px solid var(--gray-100);
+}
+.forecast-demo__svg { width: 100%; height: auto; }
+.forecast-demo__legend {
+  display: flex; gap: var(--space-4); justify-content: center;
+}
+.forecast-demo__legend-item {
+  display: flex; align-items: center; gap: var(--space-1);
+  font-size: 10px; font-weight: 600; color: var(--gray-600);
+}
+.forecast-demo__legend-line {
+  display: inline-block; width: 18px; height: 3px;
+  border-radius: 2px;
+}
+.forecast-demo__legend-line--actual { background: #1a73e8; }
+.forecast-demo__legend-line--forecast {
+  background: #FF6B35;
+  background-image: repeating-linear-gradient(
+    90deg, #FF6B35 0, #FF6B35 4px, transparent 4px, transparent 7px
+  );
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (max-width: 1024px) {
+  .usp-cards {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .usp-section { padding: var(--space-16) 0; }
+}

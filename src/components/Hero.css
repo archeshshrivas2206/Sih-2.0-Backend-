@@ -1,0 +1,398 @@
+/* ==========================================================================
+   Sahayak Rail — IRCTC Official Hero Section & Search Card Styling (Image 1)
+   ========================================================================== */
+
+.irctc-hero {
+  background: linear-gradient(180deg, #edf4fb 0%, #f4f8fc 60%, #ffffff 100%);
+  position: relative;
+  padding: 20px 0 36px 0;
+  overflow: hidden;
+}
+
+.irctc-hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Top Hero Section: Title & Train Visual */
+.irctc-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 170px;
+  position: relative;
+}
+
+.irctc-hero-text {
+  flex: 1;
+  max-width: 580px;
+  z-index: 2;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.irctc-hero-title {
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #102a43;
+  margin-bottom: 8px;
+}
+
+.irctc-highlight-orange {
+  color: #f2722b;
+  font-weight: 800;
+}
+
+.irctc-hero-subtitle {
+  font-size: 1.05rem;
+  color: #486581;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.irctc-hero-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #005494;
+  background: #e0effe;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  width: fit-content;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Speeding Train Visual (Vande Bharat / Amrit Bharat) */
+.irctc-hero-train-visual {
+  flex: 1.2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-height: 260px;
+}
+
+.irctc-hero-train-track {
+  position: absolute;
+  bottom: 14px;
+  right: -80px;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent 0%, #cbd5e1 30%, #94a3b8 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.irctc-hero-train-img {
+  max-width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain;
+  filter: drop-shadow(-8px 10px 18px rgba(0, 20, 50, 0.16));
+  animation: trainEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: right center;
+}
+
+@keyframes trainEnter {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating IRCTC Search & Action Card (Image 1) */
+.irctc-search-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 12px 36px rgba(0, 47, 90, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+  padding: 16px 24px;
+  position: relative;
+  z-index: 10;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.irctc-search-form {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.irctc-search-grid {
+  flex: 3.4;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Rows */
+.irctc-search-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Individual field container with clean border */
+.irctc-search-field {
+  flex: 1;
+  background: #ffffff;
+  border: 1.5px solid #d9e2ec;
+  border-radius: 10px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  transition: all 0.2s ease;
+}
+
+.irctc-search-field:focus-within {
+  border-color: #005494;
+  box-shadow: 0 0 0 3px rgba(0, 84, 148, 0.12);
+}
+
+.irctc-field-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #005494;
+  flex-shrink: 0;
+}
+
+.irctc-field-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.irctc-field-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #627d98;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.irctc-field-input {
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #102a43;
+  outline: none;
+  width: 100%;
+}
+
+.irctc-field-input--date {
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.irctc-field-select {
+  border: none;
+  background: transparent;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #102a43;
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23005494' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+  padding-right: 20px;
+}
+
+/* Swap Button between From and To (Image 4) */
+.irctc-swap-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #005494;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: none;
+  box-shadow: 0 3px 8px rgba(0, 84, 148, 0.25);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+}
+
+.irctc-swap-btn:hover {
+  background: #003e6d;
+  transform: scale(1.08);
+}
+
+.irctc-swap-btn.swapping {
+  transform: rotate(180deg) scale(1.12);
+  background: #f2722b;
+}
+
+/* Search Action Button */
+.irctc-search-btn {
+  background: #1352b2;
+  color: #ffffff;
+  padding: 0 24px;
+  height: 48px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(19, 82, 178, 0.35);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.irctc-search-btn:hover {
+  background: #0f4496;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(19, 82, 178, 0.45);
+}
+
+.irctc-search-btn:active {
+  transform: translateY(0);
+}
+
+.irctc-search-feedback {
+  font-size: 0.82rem;
+  color: #005494;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.irctc-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #cbd5e1;
+  border-top-color: #005494;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Vertical Divider */
+.irctc-search-divider {
+  width: 1.5px;
+  align-self: stretch;
+  background: #e2e8f0;
+}
+
+/* Right Quick Action Cards (Image 1) */
+.irctc-search-actions {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.irctc-action-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.irctc-action-card:hover {
+  background: #f0f7ff;
+  border-color: #90c2f0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 84, 148, 0.1);
+}
+
+.irctc-action-card__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #e8f3fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.irctc-action-card__title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #005494;
+  letter-spacing: -0.01em;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .irctc-search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .irctc-search-divider {
+    display: none;
+  }
+
+  .irctc-search-actions {
+    flex-direction: row;
+  }
+
+  .irctc-hero-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .irctc-hero-train-visual {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .irctc-hero-title {
+    font-size: 2.3rem;
+  }
+
+  .irctc-search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .irctc-swap-btn {
+    align-self: center;
+    transform: rotate(90deg);
+  }
+
+  .irctc-search-actions {
+    flex-direction: column;
+  }
+}

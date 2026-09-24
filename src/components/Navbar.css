@@ -1,0 +1,424 @@
+/* ==========================================================================
+   Sahayak Rail — IRCTC Official Navigation & Header Styling (Images 1, 2, 3)
+   ========================================================================== */
+
+.irctc-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  box-shadow: 0 4px 14px rgba(0, 31, 63, 0.12);
+}
+
+/* 1. TOP AMBER ADVISORY BAR */
+.irctc-advisory-bar {
+  background: #f2722b;
+  color: #1a1a1a;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.irctc-advisory-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.irctc-advisory-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.irctc-advisory-icon {
+  display: flex;
+  align-items: center;
+  color: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.irctc-advisory-msg {
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
+.irctc-advisory-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.irctc-live-clock {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: 0.02em;
+}
+
+.irctc-font-resizer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.irctc-font-btn {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #111827;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.irctc-font-btn:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.irctc-font-btn.active {
+  background: #ffffff;
+  color: #005494;
+  border-color: #005494;
+}
+
+/* 2. MAIN BLUE NAV BAR */
+.irctc-nav-bar {
+  background: #005494;
+  color: #ffffff;
+  padding: 8px 0;
+  position: relative;
+}
+
+.irctc-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Left Brand & BETA badge */
+.irctc-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.irctc-beta-badge-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.irctc-beta-pin {
+  position: absolute;
+  top: -10px;
+  width: 1px;
+  height: 9px;
+  border-left: 1px dashed rgba(255, 255, 255, 0.65);
+}
+
+.irctc-beta-pin--left { left: 8px; }
+.irctc-beta-pin--right { right: 8px; }
+
+.irctc-beta-badge {
+  background: #002f5a;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 5px 9px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.irctc-brand-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.irctc-brand-emblems {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.irctc-emblem-ir,
+.irctc-emblem-irctc {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.2s;
+}
+
+.irctc-brand-identity:hover .irctc-emblem-ir,
+.irctc-brand-identity:hover .irctc-emblem-irctc {
+  transform: scale(1.06);
+}
+
+.irctc-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.irctc-brand-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.irctc-brand-title span {
+  color: #f2722b;
+}
+
+.irctc-brand-sub {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Center Capsule Navigation */
+.irctc-nav-capsule {
+  display: flex;
+  align-items: center;
+  background: #002f5a;
+  border-radius: 9999px;
+  padding: 3px 6px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.irctc-nav-pill {
+  padding: 6px 10px;
+  border-radius: 9999px;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.irctc-nav-pill:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.irctc-nav-pill.active {
+  background: #005494;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.irctc-pill-tag {
+  font-size: 0.62rem;
+  background: #f2722b;
+  color: #ffffff;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* Dropdown Container (Image 3) */
+.irctc-nav-dropdown-wrapper {
+  position: relative;
+}
+
+.irctc-dropdown-trigger {
+  cursor: pointer;
+}
+
+.irctc-trains-dropdown {
+  position: absolute;
+  top: 100%;
+  margin-top: 6px;
+  left: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 20, 50, 0.22), 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  min-width: 320px;
+  z-index: 1100;
+  padding: 8px 0;
+  animation: dropdownSlide 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Invisible hover bridge spanning between the trigger pill and dropdown panel */
+.irctc-trains-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: transparent;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.irctc-trains-dropdown-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.irctc-trains-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+  color: #102a43;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.irctc-trains-item:hover {
+  background: #f0f7ff;
+  color: #005494;
+}
+
+.irctc-trains-item-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.irctc-trains-item-label {
+  flex: 1;
+}
+
+.irctc-item-badge {
+  font-size: 0.65rem;
+  background: #fff3ec;
+  color: #f2722b;
+  border: 1px solid #fcd9c3;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+/* Right LOGIN Button (Image 1) */
+.irctc-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.irctc-nav-clock {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .irctc-nav-clock {
+    display: none;
+  }
+}
+
+.irctc-login-btn {
+  background: #ffffff;
+  color: #005494;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.irctc-login-btn:hover {
+  background: #f0f7ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  color: #003366;
+}
+
+.irctc-mobile-menu-btn {
+  display: none;
+  color: #ffffff;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .irctc-mobile-menu-btn {
+    display: block;
+  }
+
+  .irctc-nav-clock {
+    display: none;
+  }
+
+  .irctc-nav-capsule {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #002f5a;
+    border-radius: 0;
+    flex-direction: column;
+    padding: 12px;
+    max-width: 100%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .irctc-nav-capsule.open {
+    display: flex;
+  }
+
+  .irctc-nav-pill {
+    width: 100%;
+    text-align: left;
+    justify-content: flex-start;
+  }
+}

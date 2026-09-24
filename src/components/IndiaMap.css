@@ -1,0 +1,382 @@
+/* ============================================
+   India Map — Digitale Schiene-style with Leaflet
+   ============================================ */
+
+.ds-map-section {
+  position: relative;
+  min-height: 100vh;
+  background: #cbd5e1; /* Deeper slate-gray for very strong differentiation */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+}
+
+.ds-map-section__container {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  height: 80vh;
+  min-height: 600px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+/* Left Panel */
+.ds-map-panel {
+  width: 420px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.ds-map-panel__heading {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ir-blue-900);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+
+.ds-map-panel__text {
+  font-size: 13px;
+  color: var(--gray-800);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.ds-map-panel__text strong {
+  font-weight: 700;
+}
+
+/* Legend Toggles */
+.ds-map-panel__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.ds-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.ds-legend-item:hover {
+  background: #f1f5f9;
+}
+
+/* Checkbox squares */
+.ds-legend-checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.ds-legend-checkbox svg {
+  width: 14px;
+  height: 14px;
+  color: var(--white);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all var(--transition-fast);
+}
+
+.ds-legend-checkbox--checked-blue { background: #1a73e8; }
+.ds-legend-checkbox--checked-pink { background: #ff0055; }
+
+.ds-legend-checkbox--checked-blue svg,
+.ds-legend-checkbox--checked-pink svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Legend circular dots */
+.ds-legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+}
+
+.ds-legend-dot--blue { background: #1a73e8; }
+.ds-legend-dot--pink { background: #ff0055; }
+
+.ds-legend-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+/* Bottom CTA */
+.ds-map-panel__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ir-blue-900);
+  text-decoration: none;
+  margin-top: auto;
+}
+
+.ds-map-panel__cta svg {
+  width: 18px;
+  height: 18px;
+  color: #ff0055; /* pink arrow */
+  transition: transform var(--transition-base);
+}
+
+.ds-map-panel__cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* Right — Circular Map Container */
+.ds-map-canvas-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ds-map-circular-wrapper {
+  position: relative;
+  width: 75vh;
+  max-width: 800px;
+  height: 75vh;
+  max-height: 800px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.03);
+  overflow: hidden; /* Clips the map tiles to a circle */
+  z-index: 1;
+}
+
+/* Leaflet overrides */
+.ds-map-circular-wrapper .leaflet-container {
+  background: transparent !important;
+}
+
+/* Make tile layer very light, grayscale for topographic look */
+.ds-map-circular-wrapper .leaflet-tile-pane {
+  filter: grayscale(100%) brightness(1.15) contrast(0.9);
+  opacity: 0.8;
+}
+
+/* Hide default Leaflet controls */
+.ds-map-circular-wrapper .leaflet-control-zoom,
+.ds-map-circular-wrapper .leaflet-control-attribution {
+  display: none !important;
+}
+
+/* Custom markers styling */
+.ds-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Major marker (Pink ring, white circle, half dot) */
+.ds-marker--major .ds-marker__outer {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 0, 85, 0.15); /* Light pink outer glow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-marker--major .ds-marker__inner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+/* Half pink, half blue inner dot */
+.ds-marker--major .ds-marker__inner::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #ff0055 50%, #1a73e8 50%);
+}
+
+/* Minor marker (Small blue dot with white border) */
+.ds-marker--minor .ds-marker__outer {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-marker--minor .ds-marker__inner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1a73e8; /* solid blue */
+}
+
+/* Custom floating map controls */
+.ds-controls {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 8px 4px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 500;
+  align-items: center;
+  border: 1px solid var(--gray-100);
+}
+
+.ds-controls__group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ds-controls__btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.ds-controls__btn:hover {
+  background: var(--gray-100);
+  color: var(--gray-900);
+}
+
+.ds-controls__divider {
+  width: 20px;
+  height: 1px;
+  background: var(--gray-200);
+  margin: 2px 0;
+}
+
+/* Legend dots inside controls */
+.ds-controls__legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 4px 0;
+  box-shadow: 0 0 0 2px var(--white), 0 0 0 3px rgba(0,0,0,0.05);
+}
+
+.ds-controls__legend-dot--pink { background: #ff0055; }
+.ds-controls__legend-dot--blue { background: #1a73e8; }
+.ds-controls__legend-dot--mixed {
+  background: #ff0055;
+  position: relative;
+  overflow: hidden;
+}
+
+.ds-controls__legend-dot-half {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; width: 50%;
+  background: #1a73e8;
+}
+
+/* Leaflet popup overrides */
+.ds-popup .leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  padding: 0;
+}
+
+.ds-popup .leaflet-popup-content {
+  margin: 10px 14px;
+  font-family: var(--font-family);
+}
+
+.ds-popup .leaflet-popup-tip {
+  box-shadow: none;
+}
+
+.ds-popup__name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ir-blue-900);
+  margin-bottom: 2px;
+}
+
+.ds-popup__zone {
+  font-size: 10px;
+  color: var(--gray-500);
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .ds-map-section {
+    padding: 40px 20px;
+  }
+  
+  .ds-map-section__container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .ds-map-panel {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .ds-map-circular-wrapper {
+    width: 80vw;
+    height: 80vw;
+  }
+}
